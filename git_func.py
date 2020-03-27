@@ -76,12 +76,33 @@ def add():
         print(e)
 
 
-# status()
-# add()
+def unstage():
+    """
+    Remove files from the working tree and from the index
+    :return: None
+    """
+    files = input("Enter file names to remove or * if you want to remove all files to staging area\n").strip().split()
+    call = ['git', 'rm', '--cached'] + files
+    try:
+        subprocess.check_call(call)
+    except subprocess.CalledProcessError as e:
+        print(e)
 
+def commit():
+    """
+     Record changes to the repository
+    :return: None
+    """
+    message = 'Initial commit'
+    choice = input(f'{message} as commit message [y/n]').strip().lower()
+    if choice == 'n':
+        message = input("Commit message:")
+    try:
+        subprocess.check_call(['git', 'commit', f'-m"{message}"'])
+    except subprocess.CalledProcessError as e:
+        print(e)
 
 # help()
-
 
 def git():
     """
