@@ -47,7 +47,7 @@ def clone():
         os.chdir(os.path.join(os.getcwd(), new_name))
 
 
-def help():
+def git_help():
     """
     Shows help message
     :return: None
@@ -102,7 +102,7 @@ def commit():
     except subprocess.CalledProcessError as e:
         print(e)
 
-# help()
+# git_help()
 
 def git():
     """
