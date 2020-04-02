@@ -1,8 +1,9 @@
 import subprocess
 import os
 
-os.chdir('C:\\Users\\shaki\\Desktop\\git_test')
-print(os.getcwd())
+INITIAL_PATH = 'C:\\Users\\shaki\\Desktop\\git_test'
+os.chdir(INITIAL_PATH)
+print(os.getcwd(), '\n')
 
 
 def init():
@@ -88,6 +89,33 @@ def unstage():
     except subprocess.CalledProcessError as e:
         print(e)
 
+
+def clean():
+    """
+    Remove untracked files from the working tree
+    :return:
+    """
+    call = ['git', 'clean', '-f', '-n', '-d']
+    try:
+        # for later integration with GUI
+        # TODO make this kind of output for every function
+        print(subprocess.run(call, stdout=subprocess.PIPE, shell=True).stdout.decode())
+    except subprocess.CalledProcessError as e:
+        print(e)
+        return
+    choice = input("Do wish to clean these files from working tree (y/n):").lower()
+    if choice == 'y':
+        call.remove('-n')
+        try:
+            subprocess.run(call, shell=True)
+        except subprocess.CalledProcessError as e:
+            print(e)
+            return
+
+
+# clean()
+
+
 def commit():
     """
      Record changes to the repository
@@ -101,6 +129,7 @@ def commit():
         subprocess.check_call(['git', 'commit', f'-m"{message}"'])
     except subprocess.CalledProcessError as e:
         print(e)
+
 
 # git_help()
 
