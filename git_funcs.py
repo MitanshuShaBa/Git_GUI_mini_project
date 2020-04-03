@@ -107,6 +107,45 @@ def unstage():
 
 # unstage()
 
+def clean():
+    """
+    Remove untracked files from the working tree
+    :return: None
+    """
+    # call = ['git', 'clean', '-f', '-n', '-d']
+    call = 'git clean -f -n -d'
+    try:
+        # for later integration with GUI
+        # TODO make this kind of output for every function
+        print(subprocess.run(call, stdout=subprocess.PIPE).stdout.decode())
+    except subprocess.CalledProcessError as e:
+        print(e)
+        return
+    choice = input("Do wish to clean these files from working tree (y/n):").lower()
+    if choice == 'y':
+        call = 'git clean -f -d'
+        try:
+            subprocess.run(call)
+        except subprocess.CalledProcessError as e:
+            print(e)
+            return
+
+
+def commit():
+    """
+     Record changes to the repository
+    :return: None
+    """
+    message = 'Initial commit_addr'
+    choice = input(f'{message} as commit_addr message [y/n]').strip().lower()
+    if choice == 'n':
+        message = input("Commit message:")
+    try:
+        subprocess.check_call(['git', 'commit_addr', f'-m"{message}"'])
+    except subprocess.CalledProcessError as e:
+        print(e)
+
+
 def add_remote(name, url):
     cmd = f'git remote add {name} {url}'
     msg = subprocess.run(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -144,34 +183,16 @@ def push_branch(remote, branch):
 def push_all(remote):
     cmd = f'git push {remote} --all'
     cmd_call(cmd)
+
+
 # add_remote('origin3', 'https://github.com/MitanshuShaBa/Git-test3.git')
 # push_all('origin3')
 
-def clean():
-    """
-    Remove untracked files from the working tree
-    :return: None
-    """
-    # call = ['git', 'clean', '-f', '-n', '-d']
-    call = 'git clean -f -n -d'
-    try:
-        # for later integration with GUI
-        # TODO make this kind of output for every function
-        print(subprocess.run(call, stdout=subprocess.PIPE).stdout.decode())
-    except subprocess.CalledProcessError as e:
-        print(e)
-        return
-    choice = input("Do wish to clean these files from working tree (y/n):").lower()
-    if choice == 'y':
-        call = 'git clean -f -d'
-        try:
-            subprocess.run(call)
-        except subprocess.CalledProcessError as e:
-            print(e)
-            return
+def pull(remote, branch):
+    cmd = f'git pull {remote} {branch}'
+    cmd_call(cmd)
 
 
-# clean()
 def branch_create():
     """
     Creates a branch
@@ -321,21 +342,6 @@ def merge(branch1, branch2):
 
 # merge('master', 'b1')
 # merge('master', 'b2')
-
-
-def commit():
-    """
-     Record changes to the repository
-    :return: None
-    """
-    message = 'Initial commit_addr'
-    choice = input(f'{message} as commit_addr message [y/n]').strip().lower()
-    if choice == 'n':
-        message = input("Commit message:")
-    try:
-        subprocess.check_call(['git', 'commit_addr', f'-m"{message}"'])
-    except subprocess.CalledProcessError as e:
-        print(e)
 
 
 # git_help()
