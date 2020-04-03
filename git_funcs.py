@@ -87,7 +87,7 @@ def unstage():
     Remove files from the working tree and from the index
     :return: None
     """
-    files = input("Enter file names to remove or * if you want to remove all files to staging area\n").strip().split()
+    files = input("Enter file names to remove or * if you want to remove all files from staging area\n").strip().split()
     call = ['git', 'rm', '--cached'] + files
     try:
         subprocess.check_call(call)
