@@ -87,12 +87,13 @@ def unstage():
     Remove files from the working tree and from the index
     :return: None
     """
-    files = input("Enter file names to remove or * if you want to remove all files from staging area\n").strip().split()
-    call = ['git', 'rm', '--cached'] + files
-    try:
-        subprocess.check_call(call)
-    except subprocess.CalledProcessError as e:
-        print(e)
+    # files with spaces have to be surrounded with ""
+    files = input("Enter file names to remove or * if you want to remove all files from staging area\n").strip()
+    cmd = 'git reset ' + files
+    msg = subprocess.run(cmd, stderr=subprocess.PIPE)
+    err = msg.stderr.decode()
+    print(err)
+unstage()
 
 
 def clean():
@@ -265,6 +266,8 @@ def merge(branch1, branch2):
         return
 
     branch_delete(branch2)
+
+
 # merge('master', 'b1')
 # merge('master', 'b2')
 
