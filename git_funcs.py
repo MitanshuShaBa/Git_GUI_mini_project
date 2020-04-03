@@ -149,12 +149,13 @@ def branch_create():
 
 # branch_create()
 
-def branch_delete():
+def branch_delete(branch):
     """
     deletes a branch
     :return: None
     """
-    name = input("Enter name of branch to be deleted:").strip()
+    name = branch
+    # name = input("Enter name of branch to be deleted:").strip()
     cmd = f'git branch {name} -d'
     try:
         message = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -261,6 +262,9 @@ def merge(branch1, branch2):
         print(out)
     if err:
         print(err)
+        return
+
+    branch_delete(branch2)
 # merge('master', 'b1')
 # merge('master', 'b2')
 
