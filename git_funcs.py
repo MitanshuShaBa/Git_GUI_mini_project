@@ -135,7 +135,6 @@ def branch_create():
     branch_exists_msg = f"fatal: A branch named '{name}' already exists."
     try:
         message = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out = message.stdout
         err = message.stderr.decode()
         # case: branch name exists
         if err.strip() == branch_exists_msg:
@@ -183,7 +182,6 @@ def branch_rename():
         return
     cmd = f'git branch -m {name} {new_name}'
     branch_exists_msg = f"fatal: A branch named '{new_name}' already exists."
-    branch_not_found_msg = f"error: refname refs/heads/side not found\nfatal: Branch rename failed\n"
     try:
         message = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         err = message.stderr.decode()
