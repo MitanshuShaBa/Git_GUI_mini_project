@@ -8,6 +8,15 @@ print(os.getcwd(), '\n')
 
 # TODO remove all shell=True for full string command
 
+def cmd_call(cmd):
+    msg = subprocess.run(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    out = msg.stdout.decode()
+    err = msg.stderr.decode()
+    if out:
+        print(out)
+    if err:
+        print(err)
+
 
 def init():
     """
@@ -15,6 +24,7 @@ def init():
     :return:
     """
     cmd = 'git init'
+    subdirectory = ''
     choice = int(input("Do you want to initialise:\n"
                        "1.Current directory as git\n"
                        "2.Make new directory\n"))
@@ -93,8 +103,49 @@ def unstage():
     msg = subprocess.run(cmd, stderr=subprocess.PIPE)
     err = msg.stderr.decode()
     print(err)
-unstage()
 
+
+# unstage()
+
+def add_remote(name, url):
+    cmd = f'git remote add {name} {url}'
+    msg = subprocess.run(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    err = msg.stderr.decode()
+    if err:
+        print(err)
+
+
+# add_remote('origin2', 'https://github.com/MitanshuShaBa/Git-test2.git')
+def rename_remote(old, new):
+    cmd = f'git remote rename {old} {new}'
+    msg = subprocess.run(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    err = msg.stderr.decode()
+    if err:
+        print(err)
+    # rename_remote('wahab', 'w')
+
+
+def show_remotes():
+    cmd = 'git remote show'
+    out = subprocess.run(cmd, stdout=subprocess.PIPE).stdout.decode()
+    print(out)
+
+
+# show_remotes()
+
+
+def push_branch(remote, branch):
+    cmd = f'git push {remote} {branch}'
+    cmd_call(cmd)
+
+
+# push_branch('origin2', 'remote')
+
+def push_all(remote):
+    cmd = f'git push {remote} --all'
+    cmd_call(cmd)
+# add_remote('origin3', 'https://github.com/MitanshuShaBa/Git-test3.git')
+# push_all('origin3')
 
 def clean():
     """
