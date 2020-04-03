@@ -206,7 +206,63 @@ def branch_list():
         print('Branches:\n', subprocess.run('git branch', stdout=subprocess.PIPE).stdout.decode())
     except:
         pass
+
+
 # branch_list()
+def checkout_branch(branch: str) -> None:
+    """
+    Checks out to a branch
+    :parameter branch
+    :type str
+    :return None
+    """
+    msg = subprocess.run(f'git checkout {branch}', stderr=subprocess.PIPE)
+    err = msg.stderr.decode()
+    branch_not_msg = f"error: pathspec '{branch}' did not match any file(s) known to git"
+    if err.strip() == branch_not_msg:
+        print('branch does not exist')
+
+
+# checkout_branch('master')
+
+
+def checkout_commit(commit_addr: str) -> None:
+    """
+    Checks out to a branch
+    :parameter commit_addr
+    :type str
+    :return None
+    """
+    msg = subprocess.run(f'git checkout {commit_addr}', stderr=subprocess.PIPE)
+    err = msg.stderr.decode()
+    commit_not_msg = f"error: pathspec '{commit_addr}' did not match any file(s) known to git"
+    if err.strip() == commit_not_msg:
+        print('commit_addr does not exist')
+
+
+# checkout_commit('cswwe')
+
+
+def merge(branch1, branch2):
+    """
+    Merges 2 branches together
+    :parameter: branch1
+    :type: str
+    :parameter: branch2
+    :type: str
+    :return: None
+    """
+    checkout_branch(branch1)
+    cmd = f'git merge {branch2}'
+    msg = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out = msg.stdout.decode()
+    err = msg.stderr.decode()
+    if out:
+        print(out)
+    if err:
+        print(err)
+# merge('master', 'b1')
+# merge('master', 'b2')
 
 
 def commit():
@@ -214,12 +270,12 @@ def commit():
      Record changes to the repository
     :return: None
     """
-    message = 'Initial commit'
-    choice = input(f'{message} as commit message [y/n]').strip().lower()
+    message = 'Initial commit_addr'
+    choice = input(f'{message} as commit_addr message [y/n]').strip().lower()
     if choice == 'n':
         message = input("Commit message:")
     try:
-        subprocess.check_call(['git', 'commit', f'-m"{message}"'])
+        subprocess.check_call(['git', 'commit_addr', f'-m"{message}"'])
     except subprocess.CalledProcessError as e:
         print(e)
 
