@@ -314,7 +314,7 @@ class Ui_MainWindow(object):
         pass
 
 
-if __name__ == "__main__":
+if True:
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
