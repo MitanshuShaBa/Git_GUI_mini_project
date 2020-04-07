@@ -160,11 +160,14 @@ class Ui_MainWindow(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         MainWindow.setPalette(palette)
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget.setGeometry(QtCore.QRect(40, 120, 691, 231))
         self.listWidget.setObjectName("listWidget")
+
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(590, 470, 141, 28))
         self.pushButton_2.setObjectName("pushButton_2")
@@ -214,12 +217,31 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Git Gui"))
         self.pushButton_2.setText(_translate("MainWindow", "Push To Source"))
+        self.pushButton_2.clicked.connect(self.toOrigin)
         self.pushButton_3.setText(_translate("MainWindow", "Commit"))
+        self.pushButton_3.clicked.connect(self.commit)
         self.label.setText(_translate("MainWindow", "Changes:"))
         self.label_2.setText(_translate("MainWindow", "Comments:"))
         self.label_3.setText(_translate("MainWindow", "Repo:"))
         self.label_4.setText(_translate("MainWindow", "name"))
 
+    def renameLable(self,name):
+        pass
+
+    def findChanges(self):
+        pass
+
+    def refresh(self):
+        pass
+
+    def commit(self):
+        cMsg = self.textEdit.toPlainText()
+        print(cMsg)
+        pass
+
+    def toOrigin(self):
+        print('b')
+        pass
 
 
 import sys

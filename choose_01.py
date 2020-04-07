@@ -232,11 +232,13 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Create"))
         self.label_2.setText(_translate("Dialog", "Create New Repository"))
         self.BCreateNew.setText(_translate("Dialog", "Create"))
+        self.BCreateNew.clicked.connect(self.createNew)
         self.Creating.setTabText(self.Creating.indexOf(
             self.New), _translate("Dialog", "new"))
 
         self.label_3.setText(_translate("Dialog", "Enter File Location"))
         self.pushButton.setText(_translate("Dialog", "Create"))
+        self.pushButton.clicked.connect(self.cloneLink)
         self.Creating.setTabText(self.Creating.indexOf(
             self.fork), _translate("Dialog", "fork"))
         
@@ -245,15 +247,10 @@ class Ui_Dialog(object):
         print('new')
         pass
 
-    # to clone local repo
-    def cloneLocal(self):
-        address = self.lineEdit.text()
-        print(address)
-        pass
 
     # to clone repo from link
     def cloneLink(self):
-        link = self.lineEdit_2.text()
+        link = self.lineEdit.text()
         print(link)
         pass
 
