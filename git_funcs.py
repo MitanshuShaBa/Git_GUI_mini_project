@@ -68,16 +68,18 @@ def git_help():
     Shows help message
     :return: None
     """
-    subprocess.check_call(['git', '--help'])
-
+    # subprocess.check_call(['git', '--help'])
+    cmd_call('git --help')
+# git_help()
 
 def status():
     """
     Show the working tree status
     :return:
     """
-    subprocess.check_call(['git', 'status'])
-
+    # subprocess.check_call(['git', 'status'])
+    cmd_call('git status')
+# status()
 
 def add():
     """
@@ -92,6 +94,7 @@ def add():
         print(e)
 
 
+# add()
 def unstage():
     """
     Remove files from the working tree and from the index
@@ -141,10 +144,12 @@ def commit():
     if choice == 'n':
         message = input("Commit message:")
     try:
-        subprocess.check_call(['git', 'commit_addr', f'-m"{message}"'])
+        subprocess.check_call(['git', 'commit', f'-m"{message}"'])
     except subprocess.CalledProcessError as e:
         print(e)
 
+
+# commit()
 
 def add_remote(name, url):
     cmd = f'git remote add {name} {url}'
