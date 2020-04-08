@@ -1,9 +1,8 @@
 import subprocess
 import os
 
-INITIAL_PATH = 'C:\\Users\\shaki\\Desktop\\git_test'
-os.chdir(INITIAL_PATH)
-print(os.getcwd(), '\n')
+INITIAL_PATH = os.getcwd()
+print(INITIAL_PATH, '\n')
 
 
 # TODO remove all shell=True for full string command
@@ -39,7 +38,7 @@ def init():
         os.chdir(os.path.join(os.getcwd(), subdirectory))
 
 
-def clone():
+def clone(add_link):
     """
     Clones git directory from GitHub using link
     :return: None
@@ -47,18 +46,18 @@ def clone():
     # TODO change remote to personal GitHub link
     # clone_link = 'https://github.com/MitanshuShaBa/email_tutorial.git'
     new_name = ''
-    clone_link = input("Enter clone link:\n")
+    clone_link = add_link #input("Enter clone link:\n")
     cmd = f'git clone {clone_link}'
-    choice = int(input("Do you want to clone:\n"
+    '''choice = int(input("Do you want to clone:\n"
                        "1.In directory as same name\n"
                        "2.Make new directory with different name\n"))
     if choice == 2:
         new_name = input("Enter the name of the directory for git to track:").strip()
-        cmd += ' ' + new_name
+        cmd += ' ' + new_name'''
 
     # Command is run here
     subprocess.run(cmd)
-
+ 
     if choice == 2:
         os.chdir(os.path.join(os.getcwd(), new_name))
 
