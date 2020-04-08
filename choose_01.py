@@ -251,13 +251,13 @@ class Ui_Dialog(object):
     # to clone repo from link
     def cloneLink(self):
         link = self.lineEdit.text()
-        Git.clone(link)
+        #Git.clone(link)
         print(link)
         pass
 
 
 import os
-import git_funcs as Git
+#import git_funcs as Git
 
 
 app = QtWidgets.QApplication(sys.argv)
