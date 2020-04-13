@@ -1,9 +1,8 @@
 import subprocess
-import os
+#import os
 
-INITIAL_PATH = 'C:\\Users\\shaki\\Desktop\\git_test'
-os.chdir(INITIAL_PATH)
-print(os.getcwd(), '\n')
+#print(os.getcwd(), '\n')
+
 
 
 # TODO remove all shell=True for full string command *backend*
@@ -20,63 +19,40 @@ def cmd_call(cmd):
     return out, err
 
 
-def init():
+def init(new_name):
     """
     Initialises local directory for git
     :return: None
     """
-    cmd = 'git init'
-    subdirectory = ''
-    # choice = int(input("Do you want to initialise:\n"
-    #                    "1.Current directory as git\n"
-    #                    "2.Make new directory\n"))
-    choice = 1  # todo replace with *GUI* input as above format
-    if choice == 2:
-        # subdirectory = input("Enter the name of the directory for git to track:").strip()
-        subdirectory = input("Enter the name of the directory for git to track:").strip()
-        cmd += ' ' + subdirectory
-        if not os.path.exists(subdirectory):
-            os.makedirs(subdirectory)
+    cmd = 'git init ' + new_name.strip()
 
-    # Command is run here
     out, err = cmd_call(cmd)  # todo *GUI* take this out and err to display
     if out:
         print(out)
     if err:
         print(err)
 
-    if choice == 2:
-        os.chdir(os.path.join(os.getcwd(), subdirectory))
-
-
-def clone():
+def clone(link):
+    var = False
     """
     Clones git directory from GitHub using link
     :return: None
     """
-    # TODO change remote to personal GitHub link
-    # clone_link = 'https://github.com/MitanshuShaBa/email_tutorial.git'
-    new_name = ''
-    clone_link = input("Enter clone link:\n")
-    cmd = f'git clone {clone_link}'
-    # choice = int(input("Do you want to clone:\n"
-    #                    "1.In directory as same name\n"
-    #                    "2.Make new directory with different name\n"))
-    choice = 1  # todo replace with *GUI* input as above format
 
-    if choice == 2:
-        new_name = input("Enter the name of the directory for git to track:").strip()  # todo replace with *GUI* input
-        cmd += ' ' + new_name
+
+    clone_link = link
+    cmd = f'git clone {clone_link}'
+
 
     # Command is run here
     out, err = cmd_call(cmd)  # todo *GUI* take this out and err to display
-    if out:
-        print(out)
-    if err:
-        print(err)
 
-    if choice == 2:
-        os.chdir(os.path.join(os.getcwd(), new_name))
+    if out:
+        return out
+    if err:
+        return err
+
+
 
 
 def status():
@@ -86,9 +62,9 @@ def status():
     """
     out, err = cmd_call('git status')  # todo *GUI* take this out and err to display
     if out:
-        print(out)
+        return out
     if err:
-        print(err)
+        return err
 
 
 def add():
@@ -97,14 +73,14 @@ def add():
     :return: None
     """
     # todo get file names from *GUI*
-    files = input("Enter file names to add or . if you want to add all files to staging area\n").strip().split()
-    call = ['git', 'add'] + files
+    #files = input("Enter file names to add or . if you want to add all files to staging area\n").strip().split()
+    call = ['git', 'add'] + ['.']
     cmd = ' '.join(map(str, call))
     out, err = cmd_call(cmd)  # todo *GUI* take this out and err to display
     if out:
-        print(out)
+        return out
     if err:
-        print(err)
+        return out
 
 
 def unstage():
@@ -146,31 +122,31 @@ def clean():
             print(err)
 
 
-def commit():
+def commit(msg):
     """
      Record changes to the repository
     :return: None
     """
-    message = 'Initial commit'
-    choice = input(f'{message} as commit message [y/n]').strip().lower()  # todo get y/n from *GUI*
-    if choice == 'n':
-        message = input("Commit message:")  # todo get commit message from *GUI*
+    #message = 'Initial commit'
+    #choice = input(f'{message} as commit message [y/n]').strip().lower()  # todo get y/n from *GUI*
+    #if choice == 'n':
+        #message = msg#input("Commit message:")  # todo get commit message from *GUI*
 
-    cmd = f'git commit -m"{message}"'
+    cmd = f'git commit -m"{msg}"'
     out, err = cmd_call(cmd)  # todo *GUI* take this out and err to display
     if out:
-        print(out)
+        return out
     if err:
-        print(err)
+        return err
 
 
-def add_remote(name, url):
+def add_remote(name ='rName', url =''):
     cmd = f'git remote add {name} {url}'  # todo *gui* name, url
     out, err = cmd_call(cmd)  # todo *GUI* take this out and err to display
-    if out:
-        print(out)
+    ''''if out:
+        return out
     if err:
-        print(err)
+        return err'''
 
 
 # add_remote('origin2', 'https://github.com/MitanshuShaBa/Git-test2.git')
@@ -201,13 +177,13 @@ def push_branch(remote, branch):
         print(err)
 
 
-def push_all(remote):
+def push_all(remote='rName'):
     cmd = f'git push {remote} --all'  # todo *GUI* input remote
     out, err = cmd_call(cmd)  # todo *GUI* take this out and err to display
     if out:
-        print(out)
+        return out
     if err:
-        print(err)
+        return err
 
 
 def pull(remote, branch):
